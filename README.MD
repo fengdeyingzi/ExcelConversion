@@ -16,9 +16,9 @@ java -jar D:\\app\\Excal.jar -t xml2xls -i values-zh\strings.xml values\strings.
 ```
   
 将excel转换为strings.xml
-···
+```
 java -jar ExcalConversion.jar -t xls2xml -i test.xls -o strings.xml -coding UTF-8
-···
+```
 
 ## 命令行说明  
   -t 判断输入的类型 取值如下  
