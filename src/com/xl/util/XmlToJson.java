@@ -98,7 +98,7 @@ private String text;
 */
 	}  
 
-
+//检测并输出json
   public String check(String coding) //检测file2中是否具有file1的东西
 	{
 		StringBuffer buf = new StringBuffer();

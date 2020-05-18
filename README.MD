@@ -26,7 +26,13 @@ java -jar D:\\app\\Excal.jar -t xml2xls -i values-zh\strings.xml values\strings.
 java -jar ExcalConversion.jar -t xls2xml -i test.xls -o strings.xml -coding UTF-8
 ```
 
+将strings.xml转json
+```
+java -jar ExcelConversion.jar -t xmlToJson -i values\\strings.xml -o locale\\i18n_en.json
+```
+
 ## 命令行说明  
+
   -t 判断输入的类型 取值如下  
     xmlToJson 将xml转json  
     xml2xls 将xml转xls  

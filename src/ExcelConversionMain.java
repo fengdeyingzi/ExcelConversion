@@ -18,6 +18,8 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.xl.util.ClipBoard;
 import com.xl.util.ExcelUtil;
@@ -183,7 +185,16 @@ static String app_help = "控制台支持以下命令\n  -t 判断输入的类�
 					text = readText(input, coding);
 					XmlToJson xmlToJson = new XmlToJson(text);
 //					ClipBoard.setText(xmlToJson.check());
-					saveText(output, xmlToJson.check(coding), coding);
+					String jsonTest = xmlToJson.check(coding);
+					saveText(output, jsonTest, coding);
+					try{
+						JSONObject jsonObject = new JSONObject(jsonTest);
+					}
+					catch(JSONException e){
+						e.printStackTrace();
+					}
+					
+					
 //					System.exit(0);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block

@@ -1,0 +1,287 @@
+{
+    // 使用 IntelliSense 了解相关属性。 
+    // 悬停以查看现有属性的描述。
+    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Debug (Launch) - Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-ExcelConversionMain<Excel>",
+            "request": "launch",
+            "mainClass": "ExcelConversionMain",
+            "projectName": "Excel"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-JsonFormat<Excel>",
+            "request": "launch",
+            "mainClass": "com.xl.util.JsonFormat",
+            "projectName": "Excel"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-TestWindow<Excel>",
+            "request": "launch",
+            "mainClass": "com.xl.window.TestWindow",
+            "projectName": "Excel"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Version<Excel>",
+            "request": "launch",
+            "mainClass": "junit.runner.Version",
+            "projectName": "Excel"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-TestRunner<Excel>",
+            "request": "launch",
+            "mainClass": "junit.textui.TestRunner",
+            "projectName": "Excel"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Digest<Excel>",
+            "request": "launch",
+            "mainClass": "org.apache.commons.codec.cli.Digest",
+            "projectName": "Excel"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Lister<Excel>",
+            "request": "launch",
+            "mainClass": "org.apache.commons.compress.archivers.Lister",
+            "projectName": "Excel"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-CLI<Excel>",
+            "request": "launch",
+            "mainClass": "org.apache.commons.compress.archivers.sevenz.CLI",
+            "projectName": "Excel"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-FastMath<Excel>",
+            "request": "launch",
+            "mainClass": "org.apache.commons.math3.util.FastMath",
+            "projectName": "Excel"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Main<Excel>",
+            "request": "launch",
+            "mainClass": "org.apache.log4j.chainsaw.Main",
+            "projectName": "Excel"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-PropertyPrinter<Excel>",
+            "request": "launch",
+            "mainClass": "org.apache.log4j.config.PropertyPrinter",
+            "projectName": "Excel"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-LF5Appender<Excel>",
+            "request": "launch",
+            "mainClass": "org.apache.log4j.lf5.LF5Appender",
+            "projectName": "Excel"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-StartLogFactor5<Excel>",
+            "request": "launch",
+            "mainClass": "org.apache.log4j.lf5.StartLogFactor5",
+            "projectName": "Excel"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-JMSSink<Excel>",
+            "request": "launch",
+            "mainClass": "org.apache.log4j.net.JMSSink",
+            "projectName": "Excel"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-SimpleSocketServer<Excel>",
+            "request": "launch",
+            "mainClass": "org.apache.log4j.net.SimpleSocketServer",
+            "projectName": "Excel"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-SocketServer<Excel>",
+            "request": "launch",
+            "mainClass": "org.apache.log4j.net.SocketServer",
+            "projectName": "Excel"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Roller<Excel>",
+            "request": "launch",
+            "mainClass": "org.apache.log4j.varia.Roller",
+            "projectName": "Excel"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-Version<Excel>(1)",
+            "request": "launch",
+            "mainClass": "org.apache.poi.Version",
+            "projectName": "Excel"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-HPSFPropertiesExtractor<Excel>",
+            "request": "launch",
+            "mainClass": "org.apache.poi.hpsf.extractor.HPSFPropertiesExtractor",
+            "projectName": "Excel"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-PropertyIDMap<Excel>",
+            "request": "launch",
+            "mainClass": "org.apache.poi.hpsf.wellknown.PropertyIDMap",
+            "projectName": "Excel"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-BiffDrawingToXml<Excel>",
+            "request": "launch",
+            "mainClass": "org.apache.poi.hssf.dev.BiffDrawingToXml",
+            "projectName": "Excel"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-BiffViewer<Excel>",
+            "request": "launch",
+            "mainClass": "org.apache.poi.hssf.dev.BiffViewer",
+            "projectName": "Excel"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-EFBiffViewer<Excel>",
+            "request": "launch",
+            "mainClass": "org.apache.poi.hssf.dev.EFBiffViewer",
+            "projectName": "Excel"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-FormulaViewer<Excel>",
+            "request": "launch",
+            "mainClass": "org.apache.poi.hssf.dev.FormulaViewer",
+            "projectName": "Excel"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-ReSave<Excel>",
+            "request": "launch",
+            "mainClass": "org.apache.poi.hssf.dev.ReSave",
+            "projectName": "Excel"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-RecordLister<Excel>",
+            "request": "launch",
+            "mainClass": "org.apache.poi.hssf.dev.RecordLister",
+            "projectName": "Excel"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-ExcelExtractor<Excel>",
+            "request": "launch",
+            "mainClass": "org.apache.poi.hssf.extractor.ExcelExtractor",
+            "projectName": "Excel"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-OldExcelExtractor<Excel>",
+            "request": "launch",
+            "mainClass": "org.apache.poi.hssf.extractor.OldExcelExtractor",
+            "projectName": "Excel"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-POIFSDump<Excel>",
+            "request": "launch",
+            "mainClass": "org.apache.poi.poifs.dev.POIFSDump",
+            "projectName": "Excel"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-POIFSLister<Excel>",
+            "request": "launch",
+            "mainClass": "org.apache.poi.poifs.dev.POIFSLister",
+            "projectName": "Excel"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-POIFSViewer<Excel>",
+            "request": "launch",
+            "mainClass": "org.apache.poi.poifs.dev.POIFSViewer",
+            "projectName": "Excel"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-POIFSReader<Excel>",
+            "request": "launch",
+            "mainClass": "org.apache.poi.poifs.eventfilesystem.POIFSReader",
+            "projectName": "Excel"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-POIFSFileSystem<Excel>",
+            "request": "launch",
+            "mainClass": "org.apache.poi.poifs.filesystem.POIFSFileSystem",
+            "projectName": "Excel"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-VBAMacroExtractor<Excel>",
+            "request": "launch",
+            "mainClass": "org.apache.poi.poifs.macros.VBAMacroExtractor",
+            "projectName": "Excel"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-DrawingDump<Excel>",
+            "request": "launch",
+            "mainClass": "org.apache.poi.util.DrawingDump",
+            "projectName": "Excel"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-FontMetricsDumper<Excel>",
+            "request": "launch",
+            "mainClass": "org.apache.poi.util.FontMetricsDumper",
+            "projectName": "Excel"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-HexDump<Excel>",
+            "request": "launch",
+            "mainClass": "org.apache.poi.util.HexDump",
+            "projectName": "Excel"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-JUnitCore<Excel>",
+            "request": "launch",
+            "mainClass": "org.junit.runner.JUnitCore",
+            "projectName": "Excel"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)-test<Excel>",
+            "request": "launch",
+            "mainClass": "test",
+            "projectName": "Excel"
+        }
+    ]
+}
