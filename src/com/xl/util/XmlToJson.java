@@ -14,6 +14,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;   
 import org.w3c.dom.Node;   
 import org.w3c.dom.NodeList;
+import org.apache.commons.collections4.map.CaseInsensitiveMap;
+import org.json.JSONObject;
 import org.w3c.dom.*;
 import javax.xml.transform.*;
 import javax.xml.transform.dom.*;
@@ -102,6 +104,7 @@ private String text;
   public String check(String coding) //检测file2中是否具有file1的东西
 	{
 		StringBuffer buf = new StringBuffer();
+		JSONObject jsonObject = new JSONObject();
 		ArrayList<String> nameList1 = null;
 	
 	DocumentBuilderFactory domfac = DocumentBuilderFactory.newInstance();   
@@ -169,6 +172,8 @@ private String text;
 		case 0:
 			if(c=='\\'){
 			  type =1;
+		  }else if(c=='\"'){
+			  type = 2;
 		  }
 			else{
 				buffer.append(c);
@@ -184,7 +189,69 @@ private String text;
 			}
 			type = 0;
 			break;
-
+		case 2:
+			if(c!='\"'){
+				buffer.append(c);
+			}
+			else{
+				type = 0;
+			}
+			
+			break;
+		default:
+			break;
+		}
+		  
+	  }
+	  
+	  return buffer.toString();
+  }
+  
+  //转换string.xml里的转义字符为json
+  String exStringToJSON(String text){
+	  StringBuffer buffer = new StringBuffer();
+	  int type = 0;
+	  for(int i=0;i<text.length();i++){
+		  char c = text.charAt(i);
+		  switch (type) {
+		case 0:
+			if(c=='\\'){
+			  type =1;
+		  }else if(c=='\"'){
+			  type = 2;
+		  }else if(c=='\n'){
+			  buffer.append("\\n");
+		  }else if(c=='\r'){
+			  buffer.append("\\r");
+		  }else if(c=='\t'){
+			  buffer.append("\\t");
+		  }
+			else{
+				buffer.append(c);
+			}
+			break;
+		case 1:
+			if(c=='\''){
+				buffer.append(c);
+			}
+			else{
+				buffer.append('\\');
+				buffer.append(c);
+			}
+			type = 0;
+			break;
+		case 2:
+			if(c!='\"'){
+				buffer.append(c);
+			}
+			else{
+				type = 0;
+			}
+			
+			break;
+		case 3:
+			
+			break;
 		default:
 			break;
 		}
@@ -221,7 +288,7 @@ private String text;
       Attr attr = (Attr) namenm.item(k);  
       if(attr.getNodeName().equals("name"))
       {
-      list.add("\""+attr.getNodeValue()+"\":"+"\""+toEscape( book.getTextContent())+"\"");
+      list.add("\""+attr.getNodeValue()+"\":"+"\""+exStringToJSON( book.getTextContent())+"\"");
 //      System.out.println("添加"+attr.getNodeValue() + book.getTextContent() +attr.getFirstChild().getNodeValue()+"成功"+list.size());
       }
       else
