@@ -1,9 +1,11 @@
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -21,6 +23,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.sun.xml.bind.v2.schemagen.xmlschema.List;
 import com.xl.util.ClipBoard;
 import com.xl.util.ExcelUtil;
 import com.xl.util.FileUtils;
@@ -31,8 +34,7 @@ import com.xl.window.JSONToCodeWindow;
 public class ExcelConversionMain {
 	static String url = "https://github.com/fengdeyingzi/ExcelConversion.git";
 	static String app_help = "控制台支持以下命令\n  -t 判断输入的类型 取值如下\n" + "    xmlToJson 将xml转json\n" + "    xml2xls 将xml转xls\n"
-			+ "    xls2xml 将xls转xml\n" + " -i 输入的文件\n" + " -o 输出的文件\n" + " -coding 文件的文本编码 默认utf-8\n"
-			+ "开源地址："+url;
+			+ "    xls2xml 将xls转xml\n"+ "    xls2rc 将xls转rc文件\n" + " -i 输入的文件\n" + " -o 输出的文件\n" + " -coding 文件的文本编码 默认utf-8\n" + "开源地址：" + url;
 
 	/*
 	 * -t 判断输入的类型 取值如下 xmlToJson 将xml转json xml2xls 将xml转xls xls2xml 将xls转xml -f
@@ -46,12 +48,12 @@ public class ExcelConversionMain {
 		 * "-t xml2xls -i D:\\strings.xml D:\\strings_en.xml -o D:\\test.xls -coding UTF-8"
 		 * ; args = test.split(" "); }
 		 */
-//		File file = null;
+		// File file = null;
 		String type = null;
 		File input = null;
 		File output = null;
 		ArrayList<File> list_input = new ArrayList<>();
-		
+
 		String coding = "UTF-8";
 		int type_index = 0;
 
@@ -68,7 +70,7 @@ public class ExcelConversionMain {
 					if (item.equals("-t")) {
 						type = args[i + 1];
 					} else if (item.equals("-f")) {
-//						file = new File(args[i + 1]);
+						// file = new File(args[i + 1]);
 						input = (new File(args[i + 1]));
 						list_input.add(input);
 						type_index = 1;
@@ -88,7 +90,7 @@ public class ExcelConversionMain {
 				case 1:
 					if (i < args.length - 1) {
 						if (!args[i + 1].startsWith("-")) {
-							list_input.add(new File(args[i + 1])) ;
+							list_input.add(new File(args[i + 1]));
 						} else {
 							type_index = 0;
 						}
@@ -159,7 +161,7 @@ public class ExcelConversionMain {
 
 					// System.exit(0);
 				} catch (IOException e) {
-					
+
 					e.printStackTrace();
 				}
 
@@ -169,7 +171,7 @@ public class ExcelConversionMain {
 					text = readText(input, coding);
 					String text2 = null;
 					ArrayList<HashMap<String, String>> list_mapstring = new ArrayList<>();
-					for(int i=0;i<list_input.size();i++){
+					for (int i = 0; i < list_input.size(); i++) {
 						text2 = readText(list_input.get(i), coding);
 						XmlToJson xmlToJson2 = new XmlToJson(text2);
 						list_mapstring.add(xmlToJson2.getHashList(coding));
@@ -177,7 +179,7 @@ public class ExcelConversionMain {
 
 					ArrayList<String> titles = new ArrayList<>();
 					titles.add("键");
-					for(int n=0;n<list_input.size();n++){
+					for (int n = 0; n < list_input.size(); n++) {
 						String dirname = list_input.get(n).getParentFile().getName();
 						titles.add(dirname);
 					}
@@ -192,14 +194,14 @@ public class ExcelConversionMain {
 
 						item.add((String) key);
 						item.add((String) value);
-						for(int n=1;n<list_mapstring.size();n++){
-							if(list_mapstring.get(n).get(key) != null){
+						for (int n = 1; n < list_mapstring.size(); n++) {
+							if (list_mapstring.get(n).get(key) != null) {
 								item.add(list_mapstring.get(n).get(key));
-							}else{
+							} else {
 								item.add("");
 							}
 						}
-						
+
 						values.add(item);
 					}
 					HSSFWorkbook work = ExcelUtil.getHSSFWorkbook("item", titles, values, null);
@@ -213,7 +215,10 @@ public class ExcelConversionMain {
 			case "xls2xml":
 				xlsToXml(input);
 				break;
-
+			case "xls2rc":
+				ArrayList<byte[]> listRC = xlsToRC(input,output);
+				
+				
 			default:
 				break;
 			}
@@ -256,13 +261,13 @@ public class ExcelConversionMain {
 			}
 
 		} catch (EncryptedDocumentException e) {
-			
+
 			e.printStackTrace();
 		} catch (InvalidFormatException e) {
-			
+
 			e.printStackTrace();
 		} catch (IOException e) {
-			
+
 			e.printStackTrace();
 		}
 
@@ -273,13 +278,164 @@ public class ExcelConversionMain {
 			try {
 				saveText(new File(xlsfile.getParent(), "strings_" + i + ".xml"), list_xml.get(i).toString(), "UTF-8");
 			} catch (UnsupportedEncodingException e) {
-				
+
 				e.printStackTrace();
 			} catch (IOException e) {
-				
+
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	public static byte[] getIntByte(int number) {
+		byte[] bytes = new byte[4];
+		bytes[0] = (byte) (number & 0xff);
+		bytes[1] = (byte) ((number >> 8) & 0xff);
+		bytes[2] = (byte) ((number >> 16) & 0xff);
+		bytes[3] = (byte) ((number >> 24) & 0xff);
+		return bytes;
+	}
+
+	public static byte[] getShortByte(int number) {
+		byte[] bytes = new byte[2];
+		bytes[0] = (byte) (number & 0xff);
+		bytes[1] = (byte) ((number >> 8) & 0xff);
+		return bytes;
+	}
+
+	// 将xls 转 rc文件
+	public static ArrayList<byte[]> xlsToRC(File xlsfile,File outputfile) {
+		ArrayList<byte[]> listByte = new ArrayList<byte[]>();
+		
+		ArrayList<String> listKey = new ArrayList<String>();
+		StringBuffer buffer_h = new StringBuffer();
+//		ArrayList<String> listRC = new ArrayList<>();
+		buffer_h.append("//begin the strings\n\n");
+		
+		String key = null;
+		// 读取excel
+		try {
+			Workbook work = ExcelUtil.getWorkbook(xlsfile.getPath());
+			
+			Sheet sheet = work.getSheetAt(0);
+			int columns = 0;
+			int RES_STRING_COUNT = 0;
+			for (int iy = 1; iy < sheet.getLastRowNum()+1; iy++) {
+				Row row = sheet.getRow(iy);
+				columns = row.getLastCellNum();
+				if(columns>3)columns = 3;
+				for (int ix = 0; ix < columns; ix++) {
+					Cell col = row.getCell(ix);
+					if(iy==2){
+						listByte.add(new byte[]{0x00});
+					}
+					
+					
+					key = col.getStringCellValue();
+					if (ix == 0){
+						
+						buffer_h.append(String.format("#define %s %d\n", key,iy-1));
+						RES_STRING_COUNT ++;
+						listKey.add(key);
+					}
+					
+				}
+			}
+			buffer_h.append("\n\n#define RES_STRING_COUNT "+RES_STRING_COUNT+"\n");
+			Row row = sheet.getRow(2);
+			for (int ix = 0; ix < columns; ix++) {
+				ArrayList<String> listRC = new ArrayList<>();
+				ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+				try {
+					for (int iy = 1; iy < sheet.getLastRowNum()+1; iy++) {
+//						System.out.println("ix = "+ix+", iy="+iy);
+						row = sheet.getRow(iy);
+						Cell col = row.getCell(ix);
+						if(col!=null){
+							key = col.getStringCellValue();
+						if (ix >= 1) {
+							String value = col.getStringCellValue();
+							listRC.add(String.format("%s", value));
+							System.out.println("key="+key+",value="+value);
+						}
+						}else{
+							listRC.add("");
+							System.out.println(String.format("获取数据失败，行 %d，列 %d", iy,ix));
+						}
+						
+					}
+				} catch (Exception e) {
+					System.out.println("ix="+ix);
+					e.printStackTrace();
+				}
+				
+				
+				int temp_int = 0;
+				try {
+					for (int i = 0; i < listRC.size(); i++) {
+						String item = listRC.get(i);
+						// 转换为byte
+						outputStream.write(getShortByte(temp_int));
+						temp_int += (item.length() * 2 + 2);
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				for(int i=0;i<listRC.size();i++){
+					String item = listRC.get(i);
+//					System.out.println(item);
+					try {
+						outputStream.write(item.getBytes("UTF-16BE"));
+						outputStream.write(new byte[]{0,0});
+					} catch (UnsupportedEncodingException e) {
+						e.printStackTrace();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+				listByte.set(ix, outputStream.toByteArray());
+			}
+
+		} catch (EncryptedDocumentException e) {
+			e.printStackTrace();
+		} catch (InvalidFormatException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		System.out.println(buffer_h.toString());
+		FileOutputStream outputStream;
+		try {
+			outputStream = new FileOutputStream(new File(outputfile, "res_str.h"));
+			outputStream.write(buffer_h.toString().getBytes("UTF-8"));
+			outputStream.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		for(int i=1;i<listByte.size();i++){
+			File file = new File(outputfile, String.format("res_lang%d.rc", i-1));
+			
+			try {
+				outputStream = new FileOutputStream(file);
+				try {
+					outputStream.write(listByte.get(i));
+					outputStream.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			} catch (FileNotFoundException e1) {
+				e1.printStackTrace();
+			}
+			
+			
+		}
+		
+		return listByte;
 	}
 
 	// 写入文本
