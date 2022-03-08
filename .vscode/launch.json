@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch ExcelConversionMain",
+            "request": "launch",
+            "mainClass": "ExcelConversionMain",
+            "projectName": "ExcelConversion"
+        },
+        {
+            "type": "java",
             "name": "Debug (Launch) - Current File",
             "request": "launch",
             "mainClass": "${file}"

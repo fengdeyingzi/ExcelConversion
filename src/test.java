@@ -4,23 +4,23 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import org.apache.commons.compress.archivers.dump.InvalidFormatException;
-import org.apache.poi.EncryptedDocumentException;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
+//import org.apache.commons.compress.archivers.dump.InvalidFormatException;
+//import org.apache.poi.EncryptedDocumentException;
+//import org.apache.poi.hssf.usermodel.HSSFRow;
+//import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+//import org.apache.poi.ss.usermodel.Cell;
+//import org.apache.poi.ss.usermodel.Row;
+//import org.apache.poi.ss.usermodel.Sheet;
+//import org.apache.poi.ss.usermodel.Workbook;
 
-import com.xl.util.ExcelUtil;
+// import com.xl.util.ExcelUtil;
 
 public class test {
 	
 	public static void main(String[] args) {
-		
+		System.out.println("这只是一个测试类，主类请运行：ExcelConversionMain.java");
+		/*
 		ArrayList<StringBuffer> list_xml= new ArrayList<>();
-//		list_xml.add(new StringBuffer());
 		String key = null;
 		//读取excel
 		try {
@@ -32,7 +32,6 @@ public class test {
 					Cell col = row.getCell(ix);
 					if(ix==0)
 					key = col.getStringCellValue();
-//					System.out.println(col.getStringCellValue());
 					if(ix>=1){
 						StringBuffer buffer = new StringBuffer();
 						buffer.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<resources xmlns:tools=\"http://schemas.android.com/tools\">\n");
@@ -70,7 +69,7 @@ public class test {
 			
 		}
 		
-		
+		*/
 		
 		
 		

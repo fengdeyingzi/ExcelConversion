@@ -311,7 +311,7 @@ public class ExcelConversionMain {
 		StringBuffer buffer_h = new StringBuffer();
 //		ArrayList<String> listRC = new ArrayList<>();
 		buffer_h.append("//begin the strings\n\n");
-		
+		String coding = "UTF-16BE";
 		String key = null;
 		// 读取excel
 		try {
@@ -376,7 +376,7 @@ public class ExcelConversionMain {
 						String item = listRC.get(i);
 						// 转换为byte
 						outputStream.write(getShortByte(temp_int));
-						temp_int += (item.length() * 2 + 2);
+						temp_int += (item.getBytes(coding).length + 2);
 					}
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -385,7 +385,7 @@ public class ExcelConversionMain {
 					String item = listRC.get(i);
 //					System.out.println(item);
 					try {
-						outputStream.write(item.getBytes("UTF-16BE"));
+						outputStream.write(item.getBytes(coding));
 						outputStream.write(new byte[]{0,0});
 					} catch (UnsupportedEncodingException e) {
 						e.printStackTrace();
